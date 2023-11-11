@@ -1,0 +1,69 @@
+﻿@page "/"
+@using commify_test_task.Shared.Dtos
+@inject HttpClient Http
+
+<PageTitle>Index</PageTitle>
+
+<div class="tax-calculator-screen">
+	<h1>Salary entry screen:</h1>
+	<div>
+		Gross Annual Salary:
+		<input type="text" @bind-value="@grossInput" />
+		<input type="button" value="Search" @onclick="@CalculateResults" />
+	</div>
+</div>
+
+@if (results != null)
+{
+	<div class="tax-calculator-screen">
+		<h1>Results screen:</h1>
+		<table>
+			<tbody>
+				<tr>
+					<td>Gross Annual Salary:</td>
+					<td>£ @results.GrossAnnualSalary</td>
+				</tr>
+				<tr>
+					<td>Gross Monthly Salary:</td>
+					<td>£ @results.GrossMonthlySalary</td>
+				</tr>
+				<tr>
+					<td>Net Annual Salary:</td>
+					<td>£ @results.NetAnnualSalary</td>
+				</tr>
+				<tr>
+					<td>Net Monthly Salary:</td>
+					<td>£ @results.NetMonthlySalary</td>
+				</tr>
+				<tr>
+					<td>Annual Tax Paid:</td>
+					<td>£ @results.AnnualTaxPaid</td>
+				</tr>
+				<tr>
+					<td>Monthly Tax Paid:</td>
+					<td>£ @results.MonthlyTaxPaid</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+}
+
+@code {
+	private decimal? grossInput;
+	private TaxCalculationResults? results;
+
+	async Task CalculateResults()
+	{
+		results = new TaxCalculationResults
+			{
+				GrossAnnualSalary = 40000,
+				GrossMonthlySalary = 3333.33M,
+				NetAnnualSalary = 29000,
+				NetMonthlySalary = 2416.67M,
+				AnnualTaxPaid = 11000,
+				MonthlyTaxPaid = 916.67M
+			};
+		//await Http.GetFromJsonAsync<TaxCalculationResults>("GetCalculatedResults");
+	}
+}
+
