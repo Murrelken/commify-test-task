@@ -4,16 +4,16 @@
 	{
 		protected UKTaxBand() { }
 
-		public UKTaxBand(int lowerBoundary, int upperBoundary, int taxRate)
+		public UKTaxBand(int lowerLimit, int? upperLimit, int taxRate)
 		{
-			LowerLimit = lowerBoundary;
-			UpperLimit = upperBoundary;
+			LowerLimit = lowerLimit;
+			UpperLimit = upperLimit;
 			TaxRate = taxRate;
 		}
 
 		public int Id { get; set; }
 		public int LowerLimit { get; set; }
-		public int UpperLimit { get; set; }
+		public int? UpperLimit { get; set; }
 		public int TaxRate { get; set; }
 	}
 }

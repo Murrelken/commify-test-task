@@ -16,6 +16,8 @@ namespace commify_test_task
 
 			var app = builder.Build();
 
+            app.Services.SeedTaxBands();
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

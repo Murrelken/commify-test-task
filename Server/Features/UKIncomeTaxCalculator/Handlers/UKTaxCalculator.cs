@@ -5,23 +5,40 @@ namespace commify_test_task.Server.Features.UKIncomeTaxCalculator.Handlers
 {
 	public class UKTaxCalculator : IUKTaxCalculator
 	{
-		private readonly IUKTaxBandRepository ukTaxBandRepository;
+		private readonly IUKTaxBandRepository _ukTaxBandRepository;
 
 		public UKTaxCalculator(IUKTaxBandRepository ukTaxBandRepository)
 		{
-			this.ukTaxBandRepository = ukTaxBandRepository;
+			_ukTaxBandRepository = ukTaxBandRepository;
 		}
 
 		public TaxCalculationResults CalculateUKTaxes(UKTaxCalculatorInput input)
 		{
+			var grossAnnual = Math.Round(input.GrossAnnualSalary, 2);
+			var taxBands = _ukTaxBandRepository.GetUKTaxBandsData();
+			var annualTax = 0M;
+
+			foreach (var taxBand in taxBands)
+			{
+				if (taxBand.LowerLimit >= grossAnnual) continue;
+
+				var taxableAmount = taxBand.UpperLimit == null
+					? grossAnnual - taxBand.LowerLimit
+					: Math.Min(taxBand.UpperLimit.Value - taxBand.LowerLimit, grossAnnual - taxBand.LowerLimit);
+
+				annualTax += taxableAmount / 100 * taxBand.TaxRate;
+			}
+
+			var netAnnual = grossAnnual - annualTax;
+
 			return new TaxCalculationResults
 			{
-				GrossAnnualSalary = 40000,
-				GrossMonthlySalary = 3333.33M,
-				NetAnnualSalary = 29000,
-				NetMonthlySalary = 2416.67M,
-				AnnualTaxPaid = 11000,
-				MonthlyTaxPaid = 916.67M
+				GrossAnnualSalary = grossAnnual,
+				GrossMonthlySalary = Math.Round(grossAnnual / 12, 2),
+				NetAnnualSalary = Math.Round(netAnnual, 2),
+				NetMonthlySalary = Math.Round(netAnnual / 12, 2),
+				AnnualTaxPaid = Math.Round(annualTax, 2),
+				MonthlyTaxPaid = Math.Round(annualTax / 12, 2)
 			};
 		}
 	}
