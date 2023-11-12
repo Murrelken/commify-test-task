@@ -7,7 +7,7 @@ namespace commify_test_task.Server.Startup
 		public static void RegisterServices(this IServiceCollection services)
 		{
 			services.AddScoped<IUKTaxCalculator, UKTaxCalculator>();
-			services.AddScoped<IUKTaxBandRepository, UKTaxBandRepository>();
+			services.AddScoped<IUKTaxBandProvider, UKTaxBandProvider>();
 		}
 	}
 }

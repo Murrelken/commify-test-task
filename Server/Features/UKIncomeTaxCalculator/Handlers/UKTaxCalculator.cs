@@ -5,9 +5,9 @@ namespace commify_test_task.Server.Features.UKIncomeTaxCalculator.Handlers
 {
 	public class UKTaxCalculator : IUKTaxCalculator
 	{
-		private readonly IUKTaxBandRepository _ukTaxBandRepository;
+		private readonly IUKTaxBandProvider _ukTaxBandRepository;
 
-		public UKTaxCalculator(IUKTaxBandRepository ukTaxBandRepository)
+		public UKTaxCalculator(IUKTaxBandProvider ukTaxBandRepository)
 		{
 			_ukTaxBandRepository = ukTaxBandRepository;
 		}

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace commify_test_task.Server.Features.UKIncomeTaxCalculator.Handlers
 {
-	public class UKTaxBandRepository : IUKTaxBandRepository
+	public class UKTaxBandProvider : IUKTaxBandProvider
 	{
 		private readonly DbContext _dbContext;
 
-		public UKTaxBandRepository(DbContext dbContext)
+		public UKTaxBandProvider(DbContext dbContext)
 		{
 			_dbContext = dbContext;
 		}

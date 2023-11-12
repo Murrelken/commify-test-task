@@ -2,7 +2,7 @@
 
 namespace commify_test_task.Server.Features.UKIncomeTaxCalculator.Handlers
 {
-	public interface IUKTaxBandRepository
+	public interface IUKTaxBandProvider
 	{
 		IEnumerable<UKTaxBandData> GetUKTaxBandsData();
 	}
