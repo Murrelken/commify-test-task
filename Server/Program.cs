@@ -1,19 +1,20 @@
-using Microsoft.AspNetCore.ResponseCompression;
+using commify_test_task.Server.Startup;
 
 namespace commify_test_task
 {
-    public class Program
+	public class Program
     {
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+			builder.Services.AddDatabase();
+			builder.Services.RegisterServices();
 
-            builder.Services.AddControllersWithViews();
+			builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
 
-            var app = builder.Build();
+			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

@@ -49,21 +49,12 @@
 }
 
 @code {
-	private decimal? grossInput;
+	private decimal grossInput = 0;
 	private TaxCalculationResults? results;
 
 	async Task CalculateResults()
 	{
-		results = new TaxCalculationResults
-			{
-				GrossAnnualSalary = 40000,
-				GrossMonthlySalary = 3333.33M,
-				NetAnnualSalary = 29000,
-				NetMonthlySalary = 2416.67M,
-				AnnualTaxPaid = 11000,
-				MonthlyTaxPaid = 916.67M
-			};
-		//await Http.GetFromJsonAsync<TaxCalculationResults>("GetCalculatedResults");
+		results = await Http.GetFromJsonAsync<TaxCalculationResults>($"UKIncomeTax/{grossInput}");
 	}
 }
 
