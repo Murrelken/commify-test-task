@@ -1,5 +1,5 @@
 ﻿using commify_test_task.Server.Database;
-using commify_test_task.Server.Features.UKIncomeTaxCalculator.Entities;
+using commify_test_task.Server.Seed;
 using Microsoft.EntityFrameworkCore;
 
 namespace commify_test_task.Server.Startup
@@ -18,12 +18,7 @@ namespace commify_test_task.Server.Startup
 		{
 			using var scope = serviceProvider.CreateScope();
 			var dbContext = scope.ServiceProvider.GetRequiredService<DbContext>();
-			var taxBands = new List<UKTaxBand>
-			{
-				new UKTaxBand(0, 5000, 0),
-				new UKTaxBand(5000, 20000, 20),
-				new UKTaxBand(20000, null, 40)
-			};
+			var taxBands = TaxBands.DefaultTaxBands;
 			dbContext.AddRange(taxBands);
 			dbContext.SaveChanges();
 		}
