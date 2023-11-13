@@ -49,5 +49,29 @@ namespace UKTaskCalculatorTests
 			Assert.Equal(expectedAnnualTaxPaid, results.AnnualTaxPaid);
 			Assert.Equal(expectedMonthlyTaxPaid, results.MonthlyTaxPaid);
 		}
+
+		[Theory]
+		[InlineData(10000, 833.33, 10000, 833.33, 0, 0)]
+		[InlineData(40000, 3333.33, 40000, 3333.33, 0, 0)]
+		[InlineData(5000, 416.67, 5000, 416.67, 0, 0)]
+		[InlineData(5001, 416.75, 5001, 416.75, 0, 0)]
+		public void TestEmptyBands(decimal grossAnnualSalary, decimal expectedGrossMonthlySalary,
+			decimal expectedNetAnnualSalary, decimal expectedNetMonthlySalary, decimal expectedAnnualTaxPaid, decimal expectedMonthlyTaxPaid)
+		{
+			var ukTaxBandProviderMock = new Mock<IUKTaxBandProvider>();
+			ukTaxBandProviderMock.Setup(x => x.GetUKTaxBandsData())
+				.Returns(Array.Empty<UKTaxBandData>);
+
+			var ukTaxCalculator = new UKTaxCalculator(ukTaxBandProviderMock.Object);
+
+			var results = ukTaxCalculator.CalculateUKTaxes(new UKTaxCalculatorInput() { GrossAnnualSalary = grossAnnualSalary });
+
+			Assert.Equal(grossAnnualSalary, results.GrossAnnualSalary);
+			Assert.Equal(expectedGrossMonthlySalary, results.GrossMonthlySalary);
+			Assert.Equal(expectedNetAnnualSalary, results.NetAnnualSalary);
+			Assert.Equal(expectedNetMonthlySalary, results.NetMonthlySalary);
+			Assert.Equal(expectedAnnualTaxPaid, results.AnnualTaxPaid);
+			Assert.Equal(expectedMonthlyTaxPaid, results.MonthlyTaxPaid);
+		}
 	}
 }
