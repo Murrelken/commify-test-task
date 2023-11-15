@@ -13,7 +13,7 @@ Browser should automatically open on the 7189 https localhost port.
 - Moq
 
 # Angular client
-The root folder is ./angular-clien
+The root folder is ./angular-client
 
 Additionally to the Blazor app, you can start the Angular app from the root folder by running either npm start or ng serve.
 Both will start an angular app on the 4200 port with a requests proxy to the "http://localhost:5185", which is a launch setting for the server side.
