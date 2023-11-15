@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace commify_test_task.Server.Features.UKIncomeTaxCalculator
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	public class UKIncomeTaxController : ControllerBase
 	{
 		private readonly IUKTaxCalculator _ukTaxCalculator;

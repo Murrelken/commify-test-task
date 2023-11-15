@@ -1,0 +1,41 @@
+<div class="tax-calculator-screen">
+    <form [formGroup]="salaryInputForm" (ngSubmit)="onSubmit()">
+        <label for="name">
+          Gross Annual Salary:
+        </label>
+        <input id="name" type="number" formControlName="salary">
+        <button class="button" type="submit">Calc</button>
+    </form>
+</div>
+    
+<div class="tax-calculator-screen" *ngIf="taxCalculationResults">
+	<p>Results:</p>
+    <table>
+        <tbody>
+            <tr>
+                <td>Gross Annual Salary:</td>
+                <td>£ {{taxCalculationResults.grossAnnualSalary}}</td>
+            </tr>
+            <tr>
+                <td>Gross Monthly Salary:</td>
+                <td>£ {{taxCalculationResults.grossMonthlySalary}}</td>
+            </tr>
+            <tr>
+                <td>Net Annual Salary:</td>
+                <td>£ {{taxCalculationResults.netAnnualSalary}}</td>
+            </tr>
+            <tr>
+                <td>Net Monthly Salary:</td>
+                <td>£ {{taxCalculationResults.netMonthlySalary}}</td>
+            </tr>
+            <tr>
+                <td>Annual Tax Paid:</td>
+                <td>£ {{taxCalculationResults.annualTaxPaid}}</td>
+            </tr>
+            <tr>
+                <td>Monthly Tax Paid:</td>
+                <td>£ {{taxCalculationResults.monthlyTaxPaid}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

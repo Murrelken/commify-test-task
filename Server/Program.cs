@@ -3,46 +3,60 @@ using commify_test_task.Server.Startup;
 namespace commify_test_task
 {
 	public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+	{
+		public static void Main(string[] args)
+		{
+			var builder = WebApplication.CreateBuilder(args);
 
 			builder.Services.AddDatabase();
 			builder.Services.RegisterServices();
 
 			builder.Services.AddControllersWithViews();
-            builder.Services.AddRazorPages();
+			builder.Services.AddRazorPages();
+
+			var origins = "4200_policy";
+			builder.Services.AddCors(options =>
+			{
+				options.AddPolicy(origins,
+					policy =>
+					{
+						policy
+							.WithOrigins("http://localhost:4200")
+							.AllowAnyHeader()
+							.AllowAnyMethod();
+					});
+			});
 
 			var app = builder.Build();
 
-            app.Services.SeedTaxBands();
+			app.UseCors(origins);
+			app.Services.SeedTaxBands();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseWebAssemblyDebugging();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+			// Configure the HTTP request pipeline.
+			if (app.Environment.IsDevelopment())
+			{
+				app.UseWebAssemblyDebugging();
+			}
+			else
+			{
+				app.UseExceptionHandler("/Error");
+				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+				app.UseHsts();
+			}
 
-            app.UseHttpsRedirection();
+			app.UseHttpsRedirection();
 
-            app.UseBlazorFrameworkFiles();
-            app.UseStaticFiles();
+			app.UseBlazorFrameworkFiles();
+			app.UseStaticFiles();
 
-            app.UseRouting();
+			app.UseRouting();
 
 
-            app.MapRazorPages();
-            app.MapControllers();
-            app.MapFallbackToFile("index.html");
+			app.MapRazorPages();
+			app.MapControllers();
+			app.MapFallbackToFile("index.html");
 
-            app.Run();
-        }
-    }
+			app.Run();
+		}
+	}
 }

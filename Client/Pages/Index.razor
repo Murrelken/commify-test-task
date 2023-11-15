@@ -54,7 +54,7 @@
 
 	async Task CalculateResults()
 	{
-		results = await Http.GetFromJsonAsync<TaxCalculationResults>($"UKIncomeTax/{grossInput}");
+		results = await Http.GetFromJsonAsync<TaxCalculationResults>($"api/UKIncomeTax/{grossInput}");
 	}
 }
 
