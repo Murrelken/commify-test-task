@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TaxCalculationResults } from './tax-calculation-results';
-import { TaxCalculatorService } from '../tax-calculator.service';
+import { TaxCalculationResults } from '../Dtos/tax-calculation-results';
+import { TaxCalculatorService } from '../services/tax-calculator.service';
 
 @Component({
   standalone: true,

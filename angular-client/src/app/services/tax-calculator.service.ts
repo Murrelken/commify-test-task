@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TaxCalculationResults } from './uk-tax-calculator/tax-calculation-results';
+import { TaxCalculationResults } from '../Dtos/tax-calculation-results';
 import { Observable } from 'rxjs';
 
 @Injectable({
